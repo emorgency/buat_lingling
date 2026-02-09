@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buat Lingling sayangnya Cihuy! ✨</title>
+    <style>
+        :root {
+            --primary: #ff85a2;
+            --bg: #fff5f7;
+        }
+
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: var(--bg);
+            /* Font cursive agar kesan 'lucu' dan personalnya dapet */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+        }
+
+        .container {
+            position: relative; /* Supaya notif-text bisa nempel di pojok kiri atas kartu ini */
+            text-align: center;
+            padding: 40px;
+            background: rgb(247, 166, 166); /* Warna pink sesuai mockup kamu */
+            border-radius: 30px;
+            box-shadow: 0 15px 35px rgba(255, 133, 162, 0.2);
+            max-width: 400px;
+            width: 85%;
+            z-index: 10;
+        }
+
+        /* Styling untuk tulisan kecil di pojok kiri atas */
+        .notif-text {
+            position: absolute;
+            top: 20px;
+            left: 25px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            color: #ffffff;
+            opacity: 0.8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            animation: blink 1.5s infinite; /* Efek kedap-kedip */
+        }
+
+        @keyframes blink {
+            0% { opacity: 0.3; }
+            50% { opacity: 1; }
+            100% { opacity: 0.3; }
+        }
+
+        h1 {
+            color: #5fbbe6; /* Warna biru sesuai gambar kamu */
+            font-size: 1.3rem;
+            margin-top: 20px;
+            margin-bottom: 25px;
+            background-color: aliceblue;
+            padding: 35px 20px;
+            border-radius: 30px;
+            line-height: 1.4;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+        }
+
+        #message-box {
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px;
+        }
+
+        #message {
+            font-size: 1.1rem;
+            color: #dd4269;
+            font-weight: 600;
+            line-height: 1.5;
+            transition: all 0.3s ease;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+        }
+
+        .cheer-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(206, 56, 91, 0.3);
+            transition: transform 0.2s, background-color 0.2s;
+        }
+
+        .cheer-btn:hover {
+            transform: scale(1.05);
+            background-color: #d84f7d;
+        }
+
+        .cheer-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Styling untuk partikel confetti */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="notif-text">🔔 New Notification</div> 
+        
+        <h1>SEMANGAT YANG <br> LINGLING CANCII <3!</h1>
+        <p id="message">ini dari cihuy walau pake AI :P </p>
+        
+        
+        <button class="cheer-btn" onclick="giveLove()">ada hadiah nih :p</button>
+    </div>
+
+    <script>
+        // List pesan semangatmu
+        const messages = [
+            "Semangat terus ya sayang, jangan lupa mam! 🌟",
+            "Minum air putih dulu yuk, biar seger lagi 🥤",
+            "Jangan lupa senyum, dunia butuh senyum pemikat maut kamu! 😊",
+            "Aku sayang kamu, no hoax! ❤️",
+            "Jangan nangis ntar ujan gede, mending ketawa biar jadi pelangi di hari hari marklee ea 🌈",
+            "Istirahat jangan lupa iyess💖",
+            "So proud of u sengkuyyy! ✨",
+            "Break a leg yah kejar target 🦾"
+        ];
+
+        function giveLove() {
+            const messageEl = document.getElementById('message');
+            
+            // Ambil pesan acak dari array
+            const randomMsg = messages[Math.floor(Math.random() * messages.length)];
+            
+            // Animasi transisi teks agar tidak kaku
+            messageEl.style.opacity = 0;
+            setTimeout(() => {
+                messageEl.innerText = randomMsg;
+                messageEl.style.opacity = 1;
+            }, 200);
+
+            // Jalankan efek selebrasi confetti
+            createConfetti();
+        }
+
+        function createConfetti() {
+            for (let i = 0; i < 35; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 70%, 75%)`;
+                confetti.style.top = '-10px';
+                
+                // Variasi bentuk kotak atau bulat
+                confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                
+                const duration = Math.random() * 2 + 3;
+                confetti.style.animation = `fall ${duration}s linear forwards`;
+                
+                document.body.appendChild(confetti);
+                
+                // Hapus elemen setelah jatuh agar performa web tetap oke
+                setTimeout(() => confetti.remove(), duration * 1000);
+            }
+        }
+    </script>
+</body>
+</html>
